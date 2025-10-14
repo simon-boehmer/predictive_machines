@@ -14,13 +14,14 @@ np.random.seed(42)
 X = np.random.rand(100, 1) * 10
 y = 2.5 * X.squeeze() + np.random.randn(100) * 2 + 5
 
-# Fit model and predict
+# Create linear regression (ordinary least squares) model and fit (train) model on X
+# model.coef_ and model.intercept_ stored and used to compute y_pred
 model = LinearRegression()
 model.fit(X, y)
 y_pred = model.predict(X)
-r2 = r2_score(y, y_pred)
+r2 = r2_score(y, y_pred)  # coef. of determination
 
-# Sort for line plot
+# Sort for line plot (avoid zigzagging of ax.plot)
 idx = np.argsort(X.squeeze())
 X_sort, y_pred_sort = X[idx], y_pred[idx]
 
