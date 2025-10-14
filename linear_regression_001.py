@@ -7,7 +7,9 @@ from sklearn.metrics import r2_score
 # Update runtime config. dict to increase DPI (dots-per-inch) for figures
 plt.rcParams["figure.dpi"] = 200
 
-# Generate data
+# Generate synthetic reproducible (using seed) dataset
+# X (feature matrix) from a uniform distribution in range [0, 10)
+# y incl. random noise from a standard normal distribution + offset
 np.random.seed(42)
 X = np.random.rand(100, 1) * 10
 y = 2.5 * X.squeeze() + np.random.randn(100) * 2 + 5
