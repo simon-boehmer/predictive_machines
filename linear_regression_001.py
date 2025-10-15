@@ -1,31 +1,33 @@
+# Import modules (e.g., numpy), classes (LinearRegression) and functions (r2_score)
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 
 
-# Update runtime config. dict to increase DPI (dots-per-inch) for figures
+# Update runtime configuration dictionary to increase DPI (dots-per-inch) for figures
 plt.rcParams["figure.dpi"] = 200
 
-# Generate synthetic reproducible (using seed) dataset
-# X (feature matrix) from a uniform distribution in range [0, 10)
-# y incl. random noise from a standard normal distribution + offset
+# Generate a synthetic reproducible dataset using seed
+# X (also called a feature matrix) from a uniform distribution in range [0, 10)
+# y including random noise from a standard normal distribution and an offset
 np.random.seed(42)
 X = np.random.rand(100, 1) * 10
 y = 2.5 * X.squeeze() + np.random.randn(100) * 2 + 5
 
-# Create linear regression (ordinary least squares) model and fit (train) model on X
-# model.coef_ and model.intercept_ stored and used to compute y_pred
+# Create a linear regression (ordinary least squares) model and fit (train) model on X and y
+# After fitting, learned parameters (model.coef_, model.intercept_) are stored in RAM
+# and used by model.predict to compute y_pred
 model = LinearRegression()
 model.fit(X, y)
 y_pred = model.predict(X)
 r2 = r2_score(y, y_pred)  # coef. of determination
 
-# Sort for line plot (avoid zigzagging of ax.plot)
+# Sort X and corresponding predictions for a smooth line plot (avoids zigzagging of ax.plot)
 idx = np.argsort(X.squeeze())
 X_sort, y_pred_sort = X[idx], y_pred[idx]
 
-# Plot
+# Create a scatter plot of the data and overlay the fitted regression line.
 fig, ax = plt.subplots(figsize=(10, 6))
 ax.scatter(X, y, color="steelblue", alpha=0.7, label="Data")
 ax.plot(
