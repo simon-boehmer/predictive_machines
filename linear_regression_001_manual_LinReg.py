@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 class LinearRegression:
     # Constructor method, defines initialisation (internal variables (parameters))
     def __init__(self):
-        self.coef_ = np.zeros(1)  # slope placeholder (beta_1)
+        self.coef_ = 0.0  # slope placeholder (beta_1)
         self.intercept_ = 0.0  # intercept (bias) placeholder (beta_0)
 
     # Training (fitting) method, takes X, y and computes beta_0 and beta_1 using OLS (Ordinary Least Squares)
@@ -23,12 +23,12 @@ class LinearRegression:
         beta = np.linalg.pinv(X_b) @ y
 
         # Extract model parameters
-        self.intercept_ = beta[0]
-        self.coef_ = beta[1:]
+        self.intercept_ = float(beta[0])
+        self.coef_ = float(beta[1])
 
     # Compute predictions using the learned parameters i.e., y_pred = intercept_ + coef_ * X
     def predict(self, X):
-        return self.intercept_ + self.coef_ * X
+        return (self.coef_ * X.squeeze()) + self.intercept_
 
 
 # Function to compute coefficient of determination (R^2)
@@ -63,11 +63,12 @@ r2 = r2_score(y, y_pred)  # coef. of determination
 
 # Sort X and corresponding predictions for a smooth line plot (avoids zigzagging of ax.plot)
 idx = np.argsort(X.squeeze())
-X_sort, y_pred_sort = X[idx], y_pred[idx]
+X_sort = X[idx].squeeze()
+y_pred_sort = y_pred[idx]
 
 # Create a scatter plot of the data and overlay the fitted regression line.
 fig, ax = plt.subplots(figsize=(10, 6))
-ax.scatter(X, y, color="steelblue", alpha=0.7, label="Data")
+ax.scatter(X.squeeze(), y, color="steelblue", alpha=0.7, label="Data")
 ax.plot(
     X_sort, y_pred_sort, color="darkorange", linewidth=2, label=f"Fit (R² = {r2:.3f})"
 )
