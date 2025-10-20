@@ -12,13 +12,13 @@ plt.rcParams["figure.dpi"] = 200
 # X (also called a feature matrix) from a uniform distribution in range [0, 10)
 # y including random noise from a standard normal distribution and an offset
 np.random.seed(42)
-X = np.random.rand(100, 1) * 10
-y = 2.5 * X.squeeze() + np.random.randn(100) * 2 + 5
+X = np.random.rand(100, 1) * 10  # (100, 1) 2D
+y = 2.5 * X.squeeze() + np.random.randn(100) * 2 + 5  # (100,) 1D
 
-# Create a linear regression (ordinary least squares) model and fit (train) model on X and y
-# After fitting, learned parameters (model.coef_, model.intercept_) are stored in RAM
+# Create a linear regression model (model = LinearRegression()) and fit (train) model on X and y
+# After fitting, learned parameters (model.coef_, model.intercept_) are stored in memory
 # and used by model.predict to compute y_pred
-model = LinearRegression()
+model = LinearRegression()  # using ordinary least squares (OLS)
 model.fit(X, y)
 y_pred = model.predict(X)
 
