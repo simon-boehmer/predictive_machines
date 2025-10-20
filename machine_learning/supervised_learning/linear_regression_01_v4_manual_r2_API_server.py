@@ -6,14 +6,13 @@ app = Flask(__name__)
 
 
 # Function to compute coefficient of determination (R^2)
-# R^2 = 1 - SSR / SST
-# where
-# SSR (sum of squared residuals) = n * MSE(model) = total squared prediction error of the model (before dividing by n)
-# SST (total sum of squares)     = n * MSE(mean)  = total squared difference between each y and the mean of y
-# I.e., R^2 measures how much better the model is compared to just predicting the average of y.
+# R^2 = 1 - (model error / total variation) where:
+# model error (SSR): Sum of squared differences between actual (y_true) and predicted (y_pred) values
+# total variation (SST): Sum of squared differences between actual values and their mean
+# Intuition: R^2 (0 to 1) shows how much better the model predicts the actual data compared to using just the mean
 def r2_score(y_true, y_pred):
-    ssr = np.sum((y_true - y_pred) ** 2)
-    sst = np.sum((y_true - np.mean(y_true)) ** 2)
+    ssr = np.sum((y_true - y_pred) ** 2)  # model error (sum of squared residuals)
+    sst = np.sum((y_true - np.mean(y_true)) ** 2)  # total variation in y_true
     return 1 - ssr / sst
 
 
