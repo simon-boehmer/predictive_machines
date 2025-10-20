@@ -12,8 +12,8 @@ plt.rcParams["figure.dpi"] = 200
 # X from a continuous uniform distribution in range [0, 10)
 # y including random noise from a standard normal distribution and an offset
 np.random.seed(42)
-X = np.random.rand(100, 1) * 10  # (100, 1) 2D
-y = 2.5 * X.squeeze() + np.random.randn(100) * 2 + 5  # (100,) 1D
+X = np.random.rand(100, 1) * 10  # (100, n) where n = 100
+y = 2.5 * X.squeeze() + np.random.randn(100) * 2 + 5  # (100,)
 
 # Create a linear regression model (model = LinearRegression()) and fit (train) model on X and y
 # After fitting, learned parameters (model.coef_, model.intercept_) are stored in memory
