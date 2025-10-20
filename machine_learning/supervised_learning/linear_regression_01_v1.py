@@ -21,7 +21,7 @@ y = 2.5 * X.squeeze() + np.random.randn(100) * 2 + 5  # (100,)
 model = LinearRegression()  # using ordinary least squares (OLS)
 model.fit(X, y)
 y_pred = model.predict(X)
-r2 = r2_score(y, y_pred)  # coef. of determination
+R2 = r2_score(y, y_pred)  # coef. of determination
 
 # Sort X and corresponding predictions for a smooth line plot (avoids zigzagging of ax.plot)
 idx = np.argsort(X.squeeze())
@@ -31,7 +31,7 @@ X_sort, y_pred_sort = X[idx], y_pred[idx]
 fig, ax = plt.subplots(figsize=(10, 6))
 ax.scatter(X, y, color="steelblue", alpha=0.7, label="Data")
 ax.plot(
-    X_sort, y_pred_sort, color="darkorange", linewidth=2, label=f"Fit (R² = {r2:.3f})"
+    X_sort, y_pred_sort, color="darkorange", linewidth=2, label=f"Fit (R² = {R2:.3f})"
 )
 ax.set_title("Linear Regression")
 ax.set_xlabel("X")
